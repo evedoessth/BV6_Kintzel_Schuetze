@@ -1,11 +1,9 @@
 package bv_ws20_21;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -14,20 +12,10 @@ public class Controller {
     private static final String initialFileName = "test1.png";
     private static File fileOpenPath = new File(".");
 
-    public enum PredictorType {
-        A("A (horizontal)"),
-        B("B (vertikal)"),
-        C("C (diagonal)"),
-        D("A + B − C"),
-        AD("adaptiv");
 
-        private final String name;
-        PredictorType(String s) { name = s; }
-        public String toString() { return this.name; }
-    }
-
+    private final Predication predication = new Predication();
     @FXML
-    private ComboBox<PredictorType> predictorSelection;
+    private ComboBox<Predication.PredictorType> predictorSelection;
 
     @FXML
     private ImageView originalImageView;
@@ -44,7 +32,6 @@ public class Controller {
         if(selectedFile != null) {
             fileOpenPath = selectedFile.getParentFile();
             RasterImage img = new RasterImage(selectedFile);
-            img.convertToGray();
             img.setToView(originalImageView);
             processImages();
             messageLabel.getScene().getWindow().sizeToScene();;
@@ -64,8 +51,8 @@ public class Controller {
     @FXML
     public void initialize() {
         // set combo boxes items
-        predictorSelection.getItems().addAll(PredictorType.values());
-        predictorSelection.setValue(PredictorType.A);
+        predictorSelection.getItems().addAll(Predication.PredictorType.values());
+        predictorSelection.setValue(Predication.PredictorType.A);
 
         // initialize parameters
 
@@ -77,6 +64,17 @@ public class Controller {
     }
 
     private void processImages() {
+        if(originalImageView.getImage() == null)
+            return; // no image: nothing to do
+
+        long startTime = System.currentTimeMillis();
+
+        RasterImage origImg = new RasterImage(originalImageView);
+        RasterImage binaryImg = new RasterImage(origImg.width, origImg.height);
+        RasterImage filteredImg = new RasterImage(origImg.width, origImg.height);
+
+        predication.copy(origImg, binaryImg);
+
 
         switch(predictorSelection.getValue()) {
             case A:
@@ -94,6 +92,15 @@ public class Controller {
             case AD:
                 //filter = new MinFilter();
                 break;
+            default:
+                break;
+        }
+
+          //filteredImg.setToView(filteredImageView);
+
+        messageLabel.setText("Processing time: " + (System.currentTimeMillis() - startTime) + " ms");
+        switch(predictorSelection.getValue()) {
+
         }
     }
 }
