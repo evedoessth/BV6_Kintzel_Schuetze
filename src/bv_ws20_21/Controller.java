@@ -56,11 +56,11 @@ public class Controller {
 
         // initialize parameters
 
-        /* load and process default image
+        // load and process default image
         RasterImage img = new RasterImage(new File(initialFileName));
         img.convertToGray();
         img.setToView(originalImageView);
-        processImages();*/
+        processImages();
     }
 
     private void processImages() {
@@ -73,30 +73,31 @@ public class Controller {
         RasterImage binaryImg = new RasterImage(origImg.width, origImg.height);
         RasterImage filteredImg = new RasterImage(origImg.width, origImg.height);
 
-        predication.copy(origImg, binaryImg);
 
+        predication.copy(origImg, binaryImg);
+        binaryImg.convertToGray();
 
         switch(predictorSelection.getValue()) {
             case A:
-                //filter = new MinFilter();
+                predication.horizontal(origImg,binaryImg);
                 break;
             case B:
-                //filter = new MinFilter();
+                predication.vertical(origImg,binaryImg);
                 break;
             case C:
-                //filter = new MinFilter();
+                predication.diagonal(origImg,binaryImg);
                 break;
             case D:
-                //filter = new MinFilter();
+                predication.additive(origImg,binaryImg);
                 break;
             case AD:
-                //filter = new MinFilter();
+                predication.adaptive(origImg,binaryImg);
                 break;
             default:
                 break;
         }
 
-          //filteredImg.setToView(filteredImageView);
+        binaryImg.setToView(originalImageView);
 
         messageLabel.setText("Processing time: " + (System.currentTimeMillis() - startTime) + " ms");
         switch(predictorSelection.getValue()) {

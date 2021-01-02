@@ -2,7 +2,6 @@ package bv_ws20_21;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Random;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,13 +25,6 @@ public class RasterImage {
         this.height = height;
         argb = new int[width * height];
         Arrays.fill(argb, gray);
-    }
-
-    public RasterImage(RasterImage src) {
-        // copy constructor
-        this.width = src.width;
-        this.height = src.height;
-        argb = src.argb.clone();
     }
 
     public RasterImage(File file) {

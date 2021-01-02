@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("ImageAnalysisAppView.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Predication -  WS2021 - Kintzel_Schuetze");
         primaryStage.setScene(new Scene(root, 820, 420));
         primaryStage.show();
     }
