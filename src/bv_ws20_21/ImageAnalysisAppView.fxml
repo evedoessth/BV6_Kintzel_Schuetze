@@ -21,30 +21,28 @@
     <center>
         <HBox alignment="TOP_CENTER" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                <VBox spacing="5.0">
+                <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
                     <children>
-                        <TitledPane collapsible="false" text="Original Image">
+                        <TitledPane collapsible="false" layoutX="10.0" layoutY="10.0" text="Prediction Error Image">
                             <content>
-                                <ScrollPane maxHeight="500.0" maxWidth="500.0">
-                                    <content>
-                                        <StackPane>
-                                            <children>
-                                                <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
-                                                <Canvas fx:id="imageCanvas" height="256.0" width="256.0" />
-                                            </children>
-                                        </StackPane>
-                                    </content>
-                                </ScrollPane>
+                                <Canvas fx:id="OriginalCanvas" height="256.0" width="256.0" />
                             </content>
                         </TitledPane>
-                        <BorderPane VBox.vgrow="ALWAYS">
-                            <top>
-                                <Button mnemonicParsing="false" onAction="#openImage" prefHeight="27.0" text="Open Image" />
-                            </top>
-                            <bottom>
-                                <Label fx:id="messageLabel" prefHeight="27.0" text="" BorderPane.alignment="CENTER_LEFT" />
-                            </bottom>
-                        </BorderPane>
+                        <GridPane hgap="5.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="NEVER" minWidth="10.0" maxWidth="85.0"/>
+                                <ColumnConstraints hgrow="NEVER" minWidth="0.0" maxWidth="5.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label prefHeight="27.0" text="Entropy =" />
+                                <Label fx:id="entropyOriginalLabel" prefHeight="27.0" text="1.0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                <Button mnemonicParsing="false" onAction="#openImage" prefHeight="27.0" text="Open Image" GridPane.rowIndex="1"/>
+                            </children>
+                        </GridPane>
                     </children>
                 </VBox>
                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
