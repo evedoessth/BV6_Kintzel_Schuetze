@@ -1,5 +1,6 @@
 package bv_ws20_21;
 
+import bv_ws20_21.Predication.PredictorType;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -15,7 +16,7 @@ public class Controller {
 
     private final Predication predication = new Predication();
     @FXML
-    private ComboBox<Predication.PredictorType> predictorSelection;
+    private ComboBox<PredictorType> predictorSelection;
 
     @FXML
     private ImageView originalImageView;
@@ -51,8 +52,8 @@ public class Controller {
     @FXML
     public void initialize() {
         // set combo boxes items
-        predictorSelection.getItems().addAll(Predication.PredictorType.values());
-        predictorSelection.setValue(Predication.PredictorType.A);
+        predictorSelection.getItems().addAll(PredictorType.values());
+        predictorSelection.setValue(PredictorType.A);
 
         // initialize parameters
 
